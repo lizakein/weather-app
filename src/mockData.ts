@@ -1,5 +1,6 @@
 export const mockWeather = {
   current: {
+    date: "Tuesday, Aug 5, 2025",
     weather_code: 1,
     temperature_2m: 20,
     relative_humidity_2m: 46,
