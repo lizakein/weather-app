@@ -1,6 +1,7 @@
 import { CurrentWeather } from "../components/CurrentWeather/CurrentWeather";
 import { DailyForecast } from "../components/DailyForecast/DailyForecast";
 import { Header } from "../components/Header/Header";
+import { HourlyForecast } from "../components/HourlyForecast/HourlyForecast";
 import { Search } from "../components/Search/Search";
 
 export function Home() {
@@ -10,6 +11,7 @@ export function Home() {
       <Search />
       <CurrentWeather />
       <DailyForecast />
+      <HourlyForecast />
     </>
   );
 }
