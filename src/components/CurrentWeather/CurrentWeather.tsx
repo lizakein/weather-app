@@ -1,5 +1,6 @@
 import { mockWeather } from "../../mockData";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
+import "./CurrentWeather.css";
 
 export function CurrentWeather() {
   const data = mockWeather.current;
@@ -7,10 +8,14 @@ export function CurrentWeather() {
   return (
     <section className="weather" aria-label="Current weather">
       <header className="weather__header">
-        <h2 className="weather__place">Berlin, German</h2>
-        <h3 className="weather__date">{data.date}</h3>
-        <img src={SunnyIcon} alt="Sunny weather" className="weather-icon"/>
-        <h3 className="weather__temperature">{data.temperature_2m}°</h3>
+        <div className="weather__location-info">
+          <h2 className="weather__place">Berlin, Germany</h2>
+          <h3 className="weather__date">{data.date}</h3>
+        </div>  
+        <div className="weather__temperature-container">
+          <img src={SunnyIcon} alt="Sunny weather" className="weather__icon"/>
+          <h3 className="weather__temperature">{data.temperature_2m}°</h3>
+        </div> 
       </header>
       <dl className="weather__details">
         <div className="weather__detail">
