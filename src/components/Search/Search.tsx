@@ -1,4 +1,5 @@
 import SearchIcon from "../../assets/images/icon-search.svg";
+import "./Search.css";
 
 export function Search() {
   return (
@@ -18,7 +19,7 @@ export function Search() {
           <input 
             type='search'
             className='search__input'
-            placeholder='Seacrh for a place...'
+            placeholder='Search for a place...'
             aria-label='Search'
           />
         </div>

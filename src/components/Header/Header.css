@@ -14,7 +14,7 @@
 }
 
 .header__title {
-  margin-block-end: 3rem;
+  margin-block-end: clamp(3rem, 8vw, 4rem);
   text-align: center;
   font-size: 3.25rem;
   line-height: 1.2;
