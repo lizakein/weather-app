@@ -43,9 +43,6 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  margin: auto;
   padding: var(--page-block-padding) var(--page-inline-padding);
 
   font-family: "Bricolage Grotesque", sans-serif;

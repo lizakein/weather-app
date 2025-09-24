@@ -61,10 +61,10 @@
 }
 
 .weather__details {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: clamp(1rem, 2.5vw, 1.5rem);
-  max-width: 800px;
+  max-width: 50rem;
 }
 
 .weather__detail {

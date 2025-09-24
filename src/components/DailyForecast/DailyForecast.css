@@ -1,0 +1,42 @@
+.daily-forecast__title {
+  margin-block-end: 20px;
+
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.daily-forecast__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+  gap: 1rem;
+  max-width: 50rem;
+}
+
+.daily-forecast__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 10px;
+
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  background-color: var(--neutral-800);
+  border: 1px solid var(--neutral-600);
+  border-radius: 0.75rem;
+}
+
+.daily-forecast__icon {
+  width: 60px;
+  aspect-ratio: 1 / 1;
+}
+
+.daily-forecast__temperatures {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

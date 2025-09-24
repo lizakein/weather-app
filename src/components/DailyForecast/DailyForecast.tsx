@@ -1,5 +1,6 @@
 import { mockWeather } from "../../mockData";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
+import "./DailyForecast.css";
 
 export function DailyForecast() {
   const data = mockWeather.daily;
