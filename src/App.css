@@ -55,6 +55,12 @@ body {
   color: var(--neutral-0);
 }
 
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 
 @media (max-width: 23rem) {
   :root { --page-inline-padding: 1rem; }

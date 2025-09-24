@@ -8,10 +8,12 @@ export function Home() {
   return (
     <>
       <Header />
-      <Search />
-      <CurrentWeather />
-      <DailyForecast />
-      <HourlyForecast />
+      <div className="main-content">
+        <Search />
+        <CurrentWeather />
+        <DailyForecast />
+        <HourlyForecast />
+      </div>   
     </>
   );
 }
