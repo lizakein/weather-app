@@ -1,6 +1,6 @@
 .units-window__section {
-  padding: 6px 8px;
-  font-size: 14px;
+  padding: 0.275rem 0.5rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--neutral-300);
   border-top: 1px solid var(--neutral-600);
@@ -14,13 +14,13 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 0.5rem;
+  padding: 0.625rem 0.5rem;
 }
 
 .units-window__option {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0.5rem;
+  padding: 0.625rem 0.5rem;
 }
 
 .units-window__option:hover,
