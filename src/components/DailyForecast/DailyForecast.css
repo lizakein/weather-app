@@ -1,15 +1,15 @@
 .daily-forecast__title {
-  margin-block-end: 20px;
+  margin-block-end: 1.25rem;
 
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.2;
 }
 
 .daily-forecast__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(5.25rem, 1fr));
   gap: 1rem;
 }
 
@@ -18,11 +18,11 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 10px;
+  padding: 1rem 0.625rem;
 
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.2;
   background-color: var(--neutral-800);
   border: 1px solid var(--neutral-600);
@@ -30,7 +30,7 @@
 }
 
 .daily-forecast__icon {
-  width: 60px;
+  width: 3.75rem;
   aspect-ratio: 1 / 1;
 }
 
