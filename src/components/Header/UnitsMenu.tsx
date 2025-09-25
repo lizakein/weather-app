@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { UNITS_CONFIG } from "../../config/unitsConfig";
 import type { MenuPosition } from "../../hooks/useContextMenu";
 import { OptionsWindow } from "../../shared/OptionsWindow";
+import { UnitsGroup } from "./UnitsGroup";
 
 interface UnitsMenuProps {
   menuPosition: MenuPosition;
@@ -7,6 +10,16 @@ interface UnitsMenuProps {
 };
 
 export function UnitsMenu({ menuPosition, closeMenu }: UnitsMenuProps) {
+  const [ selected, setSelected ] = useState({
+    temperature: "celsius",
+    wind: "kmh",
+    precipitation: "mm"
+  });
+
+  const handleSelect = (groupId: string, value: string) => {
+    setSelected(prev => ({ ...prev, [groupId]: value }))
+  };
+
   return (
     <OptionsWindow position={menuPosition!} onClose={closeMenu}>
       <div 
@@ -17,72 +30,18 @@ export function UnitsMenu({ menuPosition, closeMenu }: UnitsMenuProps) {
       >
         <button className="units-window__switch" role="menuitem">Switch to Imperial</button>
 
-        <p className="units-window__section">Temperature</p>
-        <div 
-          className="units-window__group" 
-          role="radiogroup"
-          aria-label="Temperature units"
-        >
-          <button 
-            className="units-window__option" 
-            role="radio" 
-            aria-checked="true"
-          >
-            Celsius (°C)
-          </button>
-          <button 
-            className="units-window__option" 
-            role="radio" 
-            aria-checked="false"
-          >
-            Fahrenheit (°F)
-          </button>
-        </div>
-        
-        <p className="units-window__section">Wind Speed</p>
-        <div 
-          className="units-window__group" 
-          role="radiogroup"
-          aria-label="Wind speed units"
-        >
-          <button 
-            className="units-window__option" 
-            role="radio" 
-            aria-checked="true"
-          >
-            km/h
-          </button>
-          <button 
-            className="units-window__option" 
-            role="radio" 
-            aria-checked="false"
-          >
-            mph
-          </button>
-        </div>
-        
-        <p className="units-window__section">Precipitation</p>
-        <div 
-          className="units-window__group" 
-          role="radiogroup"
-          aria-label="Precipitation units"
-        >
-          <button
-            className="units-window__option" 
-            role="radio" 
-            aria-checked="true"
-          >
-            Millimeters (mm)
-          </button>
-          <button
-            className="units-window__option" 
-            role="radio" 
-            aria-checked="false"
-          >
-            Inches (in)
-          </button>
-        </div>       
-      </div>
+        {UNITS_CONFIG.map(group => (
+          <UnitsGroup 
+            key={group.id}
+            id={group.id}
+            section={group.section}
+            ariaLabel={group.ariaLabel}
+            options={group.options}
+            selected={selected[group.id as keyof typeof selected]}
+            onSelect={handleSelect}
+          />
+        ))}
+      </div>  
     </OptionsWindow>
   );
 }

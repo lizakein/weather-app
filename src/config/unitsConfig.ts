@@ -1,5 +1,15 @@
-export const UNITS_CONFIG = [
+export type UnitOption = { label: string; value: string };
+export type UnitsGroupConfig = {
+  id: string;
+  section: string;
+  ariaLabel: string;
+  options: UnitOption[];
+  default?: string;
+};
+
+export const UNITS_CONFIG: UnitsGroupConfig[] = [
   {
+    id: "temperature",
     section: "Temperature",
     ariaLabel: "Temperature units",
     options: [
@@ -8,6 +18,7 @@ export const UNITS_CONFIG = [
     ]
   },
   {
+    id: "wind",
     section: "Wind Speed",
     ariaLabel: "Wind Speed units",
     options: [
@@ -16,11 +27,12 @@ export const UNITS_CONFIG = [
     ]
   },
   {
+    id: "precipitation",
     section: "Precipitation",
     ariaLabel: "Precipitation units",
     options: [
       { label: "Millimeters (mm)", value: "mm" },
       { label: "Inches (in)", value: "in" }
     ]
-  },
+  }
 ];
