@@ -47,6 +47,7 @@ export function OptionsWindow({ children, position, onClose }: OptionsWindowProp
         top: position.top,
         left: position.left,
         position: "absolute",
+        transform: "translateX(-100%)",
         zIndex: 1000,
       }}
     >

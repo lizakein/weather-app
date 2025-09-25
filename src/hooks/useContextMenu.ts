@@ -15,8 +15,8 @@ export function useContextMenu() {
     const rect = event.currentTarget.getBoundingClientRect();
 
     setMenuPosition({
-      top: rect.bottom + window.scrollY,
-      left: rect.left + window.scrollX
+      top: rect.bottom + window.scrollY + 8,
+      left: rect.right + window.scrollX
     });
 
     setOpenId(openId === id ? null : id);
