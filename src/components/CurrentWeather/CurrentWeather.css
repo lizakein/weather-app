@@ -9,7 +9,6 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  max-width: 50rem;
   padding: 2.5rem 1.5rem;
   border-radius: 1.25rem;
 
@@ -64,11 +63,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: clamp(1rem, 2.5vw, 1.5rem);
-  max-width: 50rem;
 }
 
 .weather__detail {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

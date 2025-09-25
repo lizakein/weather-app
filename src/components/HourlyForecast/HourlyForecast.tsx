@@ -1,5 +1,7 @@
 import { mockWeather } from "../../mockData";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
+import DropDownIcon from "../../assets/images/icon-dropdown.svg";
+import "./HourlyForecast.css";
 
 export function HourlyForecast() {
   const data = mockWeather.hourly;
@@ -8,14 +10,41 @@ export function HourlyForecast() {
   
   return (
     <section className="hourly-forecast" aria-label="Hourly forecast">
-      <h2 className="hourly-forecast__title">Hourly forecast</h2>
+      <div className="hourly-forecast__header">
+        <h2 className="hourly-forecast__title">Hourly forecast</h2>
 
-      <select className="hourly-forecast__select" defaultValue={today.toLowerCase()}>
-        { daysOfWeek.map(day => 
-          <option key={day} value={day.toLowerCase()} className="hourly-forecast__option">{day}</option>
-        )}
-      </select>
+        <div className="houtly-forecast__dropdown">
+          <button 
+            className="hourly-forecast__button" 
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="days-menu"
+          >
+            <span className="hourly-forecast__button-text">{today}</span>
+            <img src={DropDownIcon} alt="" className="hourly-forecast__dropdown-icon"/> 
+          </button>
 
+          <ul 
+            id="days-menu" 
+            className="hourly-forecast__menu"
+            role="menu"
+            hidden
+          >
+            {daysOfWeek.map(day => (
+              <li key={day}>
+                <button
+                  className="hourly-forecast__menu-item"
+                  role="menuitem"
+                >
+                  {day}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+      </div>
+      
       <ul className="hourly-forecast__list">
         { data.map((hour, index) => 
           <li key={index} className="hourly-forecast__item">

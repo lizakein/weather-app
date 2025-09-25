@@ -18,6 +18,16 @@ export const mockWeather = {
     { date: "Mon", weather_code: 2, temperature_2m_max: 25, temperature_2m_min: 16 },
   ],
   hourly: [
+    { time: "5AM", weather_code: 2, temperature_2m: 20 },
+    { time: "6AM", weather_code: 2, temperature_2m: 20 },
+    { time: "7AM", weather_code: 2, temperature_2m: 20 },
+    { time: "8AM", weather_code: 2, temperature_2m: 19 },
+    { time: "9APM", weather_code: 2, temperature_2m: 18 },
+    { time: "10AM", weather_code: 2, temperature_2m: 17 },
+    { time: "11AM", weather_code: 2, temperature_2m: 17 },
+    { time: "12PM", weather_code: 2, temperature_2m: 17 },
+    { time: "1PM", weather_code: 2, temperature_2m: 15 },
+    { time: "2PM", weather_code: 2, temperature_2m: 14 },
     { time: "3PM", weather_code: 2, temperature_2m: 20 },
     { time: "4PM", weather_code: 2, temperature_2m: 20 },
     { time: "5PM", weather_code: 2, temperature_2m: 20 },
@@ -25,5 +35,8 @@ export const mockWeather = {
     { time: "7PM", weather_code: 2, temperature_2m: 18 },
     { time: "8PM", weather_code: 2, temperature_2m: 17 },
     { time: "9PM", weather_code: 2, temperature_2m: 17 },
+    { time: "10PM", weather_code: 2, temperature_2m: 17 },
+    { time: "11PM", weather_code: 2, temperature_2m: 15 },
+    { time: "12AM", weather_code: 2, temperature_2m: 14 },
   ]
 };

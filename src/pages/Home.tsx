@@ -10,9 +10,19 @@ export function Home() {
       <Header />
       <div className="main-content">
         <Search />
-        <CurrentWeather />
-        <DailyForecast />
-        <HourlyForecast />
+
+        <div className="weather-card">
+          <div className="weather-column">
+            <CurrentWeather />
+            <DailyForecast />
+          </div>
+          
+          <div className="weather-column weather-column--scroll">
+            <div className="hourly-viewport">
+              <HourlyForecast />
+            </div>        
+          </div>
+        </div>
       </div>   
     </>
   );
