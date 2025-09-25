@@ -1,15 +1,15 @@
 import { mockWeather } from "../../mockData";
+import { useContextMenu } from "../../hooks/useContextMenu";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import DropDownIcon from "../../assets/images/icon-dropdown.svg";
 import "./HourlyForecast.css";
-import { OptionsWindow } from "../../shared/OptionsWindow";
-import { useContextMenu } from "../../hooks/useContextMenu";
+import { DaysMenu } from "./DaysMenu";
 
 export function HourlyForecast() {
   const { openId, menuPosition, handleMoreClick, closeMenu } = useContextMenu();
   
   const data = mockWeather.hourly;
-  const today = "Tuesday";
+  const today = 1;
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   
   return (
@@ -25,29 +25,12 @@ export function HourlyForecast() {
             aria-controls="days-menu"
             onClick={e => handleMoreClick(e, "day")}
           >
-            <span className="hourly-forecast__button-text">{today}</span>
+            <span className="hourly-forecast__button-text">{daysOfWeek[today]}</span>
             <img src={DropDownIcon} alt="" className="hourly-forecast__dropdown-icon"/> 
           </button>
 
 					{ openId === "day" && menuPosition &&
-						<OptionsWindow position={menuPosition!} onClose={closeMenu}>
-							<ul 
-								id="days-menu" 
-								className="hourly-forecast__menu"
-								role="menu"
-							>
-								{daysOfWeek.map(day => (
-									<li key={day}>
-										<button
-											className="hourly-forecast__menu-item"
-											role="menuitem"
-										>
-											{day}
-										</button>
-									</li>
-								))}
-							</ul>
-						</OptionsWindow>
+						<DaysMenu menuPosition={menuPosition} closeMenu={closeMenu} daysOfWeek={daysOfWeek} />
 					}
         </div>   
       </div>
