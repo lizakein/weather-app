@@ -1,11 +1,11 @@
 .options-window {
   display: flex;
   flex-direction: column;
-  min-width: 214px;
+  min-width: 13.375rem;
   padding: 0.5rem;
 
   background-color: var(--neutral-800);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   border: 1px solid var(--neutral-600);
 }
 
