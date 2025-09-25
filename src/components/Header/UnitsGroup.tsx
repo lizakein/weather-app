@@ -19,21 +19,27 @@ export function UnitsGroup({ id, section, ariaLabel, options, selected, onSelect
         role="radiogroup"
         aria-label={ariaLabel}
       >
-        {options.map(opt => (
-          <div className="units-window__option">
-            <button 
-              key={opt.value}
-              className="units-window__button" 
-              role="radio" 
-              aria-checked={selected === opt.value}
-              onClick={() => onSelect(id, opt.value)}
-            >
-              {opt.label}
-            </button>
+        {options.map(opt => {
+          const isSelected = selected === opt.value;
 
-            { selected === opt.value && <img src={CheckmarkIcon} alt="" /> }
-          </div>         
-        ))}
+          return (
+            <div 
+              key={opt.value} 
+              className={`units-window__option ${isSelected ? "units-window__option--selected" : ""}`}
+            >
+              <button       
+                className="units-window__button" 
+                role="radio" 
+                aria-checked={isSelected}
+                onClick={() => onSelect(id, opt.value)}
+              >
+                {opt.label}
+              </button>
+
+              { isSelected && <img src={CheckmarkIcon} alt="" /> }
+            </div>
+          );
+        })}
       </div>
     </>   
   );

@@ -3,6 +3,7 @@ import { UNITS_CONFIG } from "../../config/unitsConfig";
 import type { MenuPosition } from "../../hooks/useContextMenu";
 import { OptionsWindow } from "../../shared/OptionsWindow";
 import { UnitsGroup } from "./UnitsGroup";
+import "./UnitsMenu.css";
 
 interface UnitsMenuProps {
   menuPosition: MenuPosition;
