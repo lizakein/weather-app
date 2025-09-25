@@ -1,4 +1,5 @@
 import type { UnitOption } from "../../config/unitsConfig";
+import CheckmarkIcon from "../../assets/images/icon-checkmark.svg";
 
 interface UnitsGroupProps {
   id: string;
@@ -19,15 +20,19 @@ export function UnitsGroup({ id, section, ariaLabel, options, selected, onSelect
         aria-label={ariaLabel}
       >
         {options.map(opt => (
-          <button 
-            key={opt.value}
-            className="units-window__option" 
-            role="radio" 
-            aria-checked={selected === opt.value}
-            onClick={() => onSelect(id, opt.value)}
-          >
-            {opt.label}
-          </button>
+          <div className="units-window__option">
+            <button 
+              key={opt.value}
+              className="units-window__button" 
+              role="radio" 
+              aria-checked={selected === opt.value}
+              onClick={() => onSelect(id, opt.value)}
+            >
+              {opt.label}
+            </button>
+
+            { selected === opt.value && <img src={CheckmarkIcon} alt="" /> }
+          </div>         
         ))}
       </div>
     </>   
