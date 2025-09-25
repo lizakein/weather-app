@@ -2,8 +2,12 @@ import { mockWeather } from "../../mockData";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import DropDownIcon from "../../assets/images/icon-dropdown.svg";
 import "./HourlyForecast.css";
+import { OptionsWindow } from "../../shared/OptionsWindow";
+import { useContextMenu } from "../../hooks/useContextMenu";
 
 export function HourlyForecast() {
+  const { openId, menuPosition, handleMoreClick, closeMenu } = useContextMenu();
+  
   const data = mockWeather.hourly;
   const today = "Tuesday";
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -17,32 +21,35 @@ export function HourlyForecast() {
           <button 
             className="hourly-forecast__button" 
             aria-haspopup="true"
-            aria-expanded="false"
+            aria-expanded={ openId === "day" }
             aria-controls="days-menu"
+            onClick={e => handleMoreClick(e, "day")}
           >
             <span className="hourly-forecast__button-text">{today}</span>
             <img src={DropDownIcon} alt="" className="hourly-forecast__dropdown-icon"/> 
           </button>
 
-          <ul 
-            id="days-menu" 
-            className="hourly-forecast__menu"
-            role="menu"
-            hidden
-          >
-            {daysOfWeek.map(day => (
-              <li key={day}>
-                <button
-                  className="hourly-forecast__menu-item"
-                  role="menuitem"
-                >
-                  {day}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        
+					{ openId === "day" && menuPosition &&
+						<OptionsWindow position={menuPosition!} onClose={closeMenu}>
+							<ul 
+								id="days-menu" 
+								className="hourly-forecast__menu"
+								role="menu"
+							>
+								{daysOfWeek.map(day => (
+									<li key={day}>
+										<button
+											className="hourly-forecast__menu-item"
+											role="menuitem"
+										>
+											{day}
+										</button>
+									</li>
+								))}
+							</ul>
+						</OptionsWindow>
+					}
+        </div>   
       </div>
       
       <ul className="hourly-forecast__list">
