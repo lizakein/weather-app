@@ -1,0 +1,23 @@
+.options-window {
+  display: flex;
+  flex-direction: column;
+  min-width: 214px;
+  padding: 0.5rem;
+
+  background-color: var(--neutral-800);
+  border-radius: 12px;
+  border: 1px solid var(--neutral-600);
+}
+
+.options-window button {
+  all: unset;
+  padding: 10px 0.5rem;
+  
+  color: var(--neutral-0);
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  cursor: pointer;
+}

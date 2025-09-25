@@ -1,6 +1,7 @@
-import type { MenuPosition } from "../hooks/useContextMenu";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import type { MenuPosition } from "../hooks/useContextMenu";
+import "./OptionsWindow.css";
 
 interface OptionsWindowProps {
   children: React.ReactNode;
