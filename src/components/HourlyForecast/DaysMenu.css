@@ -1,0 +1,20 @@
+.options-window .hourly-forecast__menu-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0.5rem;
+}
+
+.hourly-forecast__menu {
+  list-style-type: none;
+}
+
+.hourly-forecast__menu-item:hover {
+  background-color: var(--neutral-700);
+  border-radius: 0.5rem;
+}
+
+.hourly-forecast__menu-item:active {
+  outline: 1px solid var(--neutral-0);
+  outline-offset: 1px;
+}

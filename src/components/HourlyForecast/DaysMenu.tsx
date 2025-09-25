@@ -1,5 +1,6 @@
 import { OptionsWindow } from "../../shared/OptionsWindow";
 import type { MenuPosition } from "../../hooks/useContextMenu";
+import "./DaysMenu.css";
 
 interface DaysMenuProps {
   menuPosition: MenuPosition;
