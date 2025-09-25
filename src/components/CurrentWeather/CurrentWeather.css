@@ -24,14 +24,6 @@
   gap: 1rem;
 }
 
-.weather__place,
-.weather__date,
-.weather__temperature {
-  font-family: "DM Sans", sans-serif;
-  line-height: 1.2;
-  color: var(--neutral-0);
-}
-
 .weather__place { 
   font-size: 1.75rem;
   font-weight: 700;
@@ -76,14 +68,12 @@
 }
 
 .weather__label {
-  font-family: "DM Sans", sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
   color: var(--neutral-200);
 }
 
 .weather__value {
-  font-family: "DM Sans", sans-serif;
   font-size: 2rem;
   font-weight: 300;
   line-height: 1;

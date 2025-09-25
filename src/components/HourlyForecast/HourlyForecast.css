@@ -17,10 +17,8 @@
 }
 
 .hourly-forecast__title {
-  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1.25rem;
-  line-height: 1.2;
 }
 
 .hourly-forecast__button {
@@ -74,15 +72,11 @@
 }
 
 .hourly-forecast__time {
-  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1.25rem;
-  line-height: 1.2;
 }
 
 .hourly-forecast__temperature {
-  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1rem;
-  line-height: 1.2;
 }

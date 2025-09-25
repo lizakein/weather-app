@@ -1,10 +1,8 @@
 .daily-forecast__title {
   margin-block-end: 1.25rem;
 
-  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1.25rem;
-  line-height: 1.2;
 }
 
 .daily-forecast__list {
@@ -20,10 +18,8 @@
   gap: 1rem;
   padding: 1rem 0.625rem;
 
-  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1.125rem;
-  line-height: 1.2;
   background-color: var(--neutral-800);
   border: 1px solid var(--neutral-600);
   border-radius: 0.75rem;
