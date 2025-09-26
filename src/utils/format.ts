@@ -21,3 +21,15 @@ export function formatHour(date: Date): string {
     hour12: true
   });
 }
+
+export function formatAriaDateTime(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric"
+  }) + " " 
+  + date.toLocaleTimeString("en-US", { 
+    hour: "numeric", 
+    hour12: true
+  });
+}

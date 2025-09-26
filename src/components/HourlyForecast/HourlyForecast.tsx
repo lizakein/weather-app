@@ -1,7 +1,7 @@
 import type { WeatherData } from "../../types/weather";
 import { useContextMenu } from "../../hooks/useContextMenu";
 import { transformHourly } from "../../utils/transformHourly";
-import { formatHour, formatNumber } from "../../utils/format";
+import { formatAriaDateTime, formatHour, formatNumber } from "../../utils/format";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import DropDownIcon from "../../assets/images/icon-dropdown.svg";
 import { DaysMenu } from "./DaysMenu";
@@ -54,7 +54,7 @@ export function HourlyForecast({ data }: HourlyForecastProps) {
                           
               <span 
                 className="hourly-forecast__temperature"
-                aria-label={`Temperature ${temp} degrees at ${hour.time}`}
+                aria-label={`Temperature ${temp} degrees at ${formatAriaDateTime(hour.time)}`}
               >
                 {temp}°
               </span>
