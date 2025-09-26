@@ -1,14 +1,20 @@
-import { mockWeather } from "../../mockData";
+import type { WeatherData } from "../../types/weather";
 import { useContextMenu } from "../../hooks/useContextMenu";
+import { transformHourly } from "../../utils/transformHourly";
+import { formatHour, formatNumber } from "../../utils/format";
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import DropDownIcon from "../../assets/images/icon-dropdown.svg";
-import "./HourlyForecast.css";
 import { DaysMenu } from "./DaysMenu";
+import "./HourlyForecast.css";
 
-export function HourlyForecast() {
+interface HourlyForecastProps {
+  data: WeatherData;
+};
+
+export function HourlyForecast({ data }: HourlyForecastProps) {
   const { openId, menuPosition, handleMoreClick, closeMenu } = useContextMenu();
   
-  const data = mockWeather.hourly;
+  const hourlyData = transformHourly(data.hourly);
   const today = 1;
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   
@@ -36,21 +42,25 @@ export function HourlyForecast() {
       </div>
       
       <ul className="hourly-forecast__list">
-        { data.map((hour, index) => 
-          <li key={index} className="hourly-forecast__item">
-            <div className="hourly-forecast__time-block">
-              <img src={SunnyIcon} alt="Sunny" className="hourly-forecast__icon" />
-              <time className="hourly-forecast__time" dateTime={hour.time}>{hour.time}</time>
-            </div>
-                        
-            <span 
-              className="hourly-forecast__temperature"
-              aria-label={`Temperature ${hour.temperature_2m} degrees at ${hour.time}`}
-            >
-              {hour.temperature_2m}°
-            </span>
-          </li>
-        )}
+        { hourlyData.map((hour, index) => {
+          const temp = formatNumber(hour.temperature_2m);
+
+          return (
+            <li key={index} className="hourly-forecast__item">
+              <div className="hourly-forecast__time-block">
+                <img src={SunnyIcon} alt="Sunny" className="hourly-forecast__icon" />
+                <time className="hourly-forecast__time" dateTime={hour.time.toISOString()}>{formatHour(hour.time)}</time>
+              </div>
+                          
+              <span 
+                className="hourly-forecast__temperature"
+                aria-label={`Temperature ${temp} degrees at ${hour.time}`}
+              >
+                {temp}°
+              </span>
+            </li>
+          )
+        })}
       </ul>      
     </section>
   );

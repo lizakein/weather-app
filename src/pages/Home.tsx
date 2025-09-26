@@ -26,7 +26,7 @@ export function Home({ data }: HomeProps) {
           
           <div className="weather-column weather-column--scroll">
             <div className="hourly-viewport">
-              <HourlyForecast />
+              <HourlyForecast data={data} />
             </div>        
           </div>
         </div>

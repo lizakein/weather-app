@@ -16,7 +16,7 @@ export function formatFullDate(date: Date): string {
 }
 
 export function formatHour(date: Date): string {
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleTimeString("en-US", {
     hour: "numeric",
     hour12: true
   });
