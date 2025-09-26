@@ -1,5 +1,6 @@
 import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import type { WeatherData } from "../../types/weather";
+import { formatFullDate, formatNumber } from "../../utils/format";
 import "./CurrentWeather.css";
 
 interface CurrentWeatherProps {
@@ -14,17 +15,17 @@ export function CurrentWeather({ data }: CurrentWeatherProps) {
       <header className="weather__header">
         <div className="weather__location-info">
           <h2 className="weather__place">Berlin, Germany</h2>
-          <h3 className="weather__date">{"Date"}</h3>
+          <h3 className="weather__date">{formatFullDate(currentData.time)}</h3>
         </div>  
         <div className="weather__temperature-container">
           <img src={SunnyIcon} alt="Sunny weather" className="weather__icon"/>
-          <h3 className="weather__temperature">{currentData.temperature_2m}°</h3>
+          <h3 className="weather__temperature">{formatNumber(currentData.temperature_2m)}°</h3>
         </div> 
       </header>
       <dl className="weather__details">
         <div className="weather__detail">
           <dt className="weather__label">Feels Like</dt>
-          <dd className="weather__value">{currentData.apparent_temperature}°</dd>
+          <dd className="weather__value">{formatNumber(currentData.apparent_temperature)}°</dd>
         </div>
         <div className="weather__detail">
           <dt className="weather__label">Humidity</dt>
@@ -32,7 +33,7 @@ export function CurrentWeather({ data }: CurrentWeatherProps) {
         </div>
         <div className="weather__detail">
           <dt className="weather__label">Wind</dt>
-          <dd className="weather__value">{currentData.wind_speed_10m} km/h</dd>
+          <dd className="weather__value">{formatNumber(currentData.wind_speed_10m)} km/h</dd>
         </div>
         <div className="weather__detail">
           <dt className="weather__label">Precipitation</dt>
