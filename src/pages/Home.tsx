@@ -3,8 +3,15 @@ import { DailyForecast } from "../components/DailyForecast/DailyForecast";
 import { Header } from "../components/Header/Header";
 import { HourlyForecast } from "../components/HourlyForecast/HourlyForecast";
 import { Search } from "../components/Search/Search";
+import type { WeatherData } from "../types/weather";
 
-export function Home() {
+interface HomeProps {
+  data: WeatherData;
+};
+
+export function Home({ data }: HomeProps) {
+  if (!data) return <div>Loading...</div>;
+  
   return (
     <>
       <Header />
@@ -13,7 +20,7 @@ export function Home() {
 
         <div className="weather-card">
           <div className="weather-column">
-            <CurrentWeather />
+            <CurrentWeather data={data} />
             <DailyForecast />
           </div>
           
