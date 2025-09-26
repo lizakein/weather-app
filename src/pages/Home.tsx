@@ -11,7 +11,7 @@ interface HomeProps {
 
 export function Home({ data }: HomeProps) {
   if (!data) return <div>Loading...</div>;
-  
+
   return (
     <>
       <Header />
@@ -21,7 +21,7 @@ export function Home({ data }: HomeProps) {
         <div className="weather-card">
           <div className="weather-column">
             <CurrentWeather data={data} />
-            <DailyForecast />
+            <DailyForecast data={data} />
           </div>
           
           <div className="weather-column weather-column--scroll">
