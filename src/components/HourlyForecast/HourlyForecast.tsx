@@ -3,7 +3,7 @@ import type { WeatherData } from "../../types/weather";
 import { useContextMenu } from "../../hooks/useContextMenu";
 import { transformHourly } from "../../utils/transformHourly";
 import { formatAriaDateTime, formatHour, formatNumber } from "../../utils/format";
-import SunnyIcon from "../../assets/images/icon-sunny.webp";
+import { getWeatherIcon } from "../../utils/getWeatherIcon";
 import DropDownIcon from "../../assets/images/icon-dropdown.svg";
 import { DaysMenu } from "./DaysMenu";
 import "./HourlyForecast.css";
@@ -18,7 +18,7 @@ export function HourlyForecast({ data }: HourlyForecastProps) {
 
   const hourlyData = transformHourly(data.hourly);
 
-  const filterByDay = (hourlyData: {time: Date; temperature_2m: number; }[], selectedDay: Date) => {
+  const filterByDay = (hourlyData: {time: Date; temperature_2m: number; weather_code: number}[], selectedDay: Date) => {
     return hourlyData.filter(hour => 
       hour.time.getDate() === selectedDay.getDate() &&
       hour.time.getMonth() === selectedDay.getMonth()
@@ -60,10 +60,12 @@ export function HourlyForecast({ data }: HourlyForecastProps) {
         { filteredData.map((hour, index) => {
           const temp = formatNumber(hour.temperature_2m);
 
+          const { src, alt } = getWeatherIcon(hour.weather_code);
+
           return (
             <li key={index} className="hourly-forecast__item">
               <div className="hourly-forecast__time-block">
-                <img src={SunnyIcon} alt="Sunny" className="hourly-forecast__icon" />
+                <img src={src} alt={alt} className="hourly-forecast__icon" />
                 <time className="hourly-forecast__time" dateTime={hour.time.toISOString()}>{formatHour(hour.time)}</time>
               </div>
                           

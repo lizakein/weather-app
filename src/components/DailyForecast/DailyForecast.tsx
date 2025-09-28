@@ -1,7 +1,7 @@
 import { transformDaily } from "../../utils/transformDaily";
 import { formatDayOfWeek, formatNumber } from "../../utils/format";
+import { getWeatherIcon } from "../../utils/getWeatherIcon";
 import type { WeatherData } from "../../types/weather";
-import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import "./DailyForecast.css";
 
 interface DailyForecastProps {
@@ -19,6 +19,8 @@ export function DailyForecast({ data }: DailyForecastProps) {
           const maxTemp = formatNumber(day.temperature_2m_max);
           const minTemp = formatNumber(day.temperature_2m_min);
 
+          const { src, alt } = getWeatherIcon(day.weather_code);
+
           return ( 
             <li key={index} className="daily-forecast__item">
               <time 
@@ -27,7 +29,7 @@ export function DailyForecast({ data }: DailyForecastProps) {
               >
                 {formatDayOfWeek(day.date)}
               </time>
-              <img src={SunnyIcon} alt="Sunny" className="daily-forecast__icon" />
+              <img src={src} alt={alt} className="daily-forecast__icon" />
               <div className="daily-forecast__temperatures">
                 <span 
                   className="daily-forecast__temp-max"

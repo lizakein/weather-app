@@ -1,6 +1,6 @@
-import SunnyIcon from "../../assets/images/icon-sunny.webp";
 import type { WeatherData } from "../../types/weather";
 import { formatFullDate, formatNumber } from "../../utils/format";
+import { getWeatherIcon } from "../../utils/getWeatherIcon";
 import "./CurrentWeather.css";
 
 interface CurrentWeatherProps {
@@ -10,6 +10,8 @@ interface CurrentWeatherProps {
 export function CurrentWeather({ data }: CurrentWeatherProps) {
   const currentData = data.current;
 
+  const { src, alt } = getWeatherIcon(currentData.weather_code);
+
   return (
     <section className="weather" aria-label="Current weather">
       <header className="weather__header">
@@ -18,7 +20,7 @@ export function CurrentWeather({ data }: CurrentWeatherProps) {
           <h3 className="weather__date">{formatFullDate(currentData.time)}</h3>
         </div>  
         <div className="weather__temperature-container">
-          <img src={SunnyIcon} alt="Sunny weather" className="weather__icon"/>
+          <img src={src} alt={alt} className="weather__icon"/>
           <h3 className="weather__temperature">{formatNumber(currentData.temperature_2m)}°</h3>
         </div> 
       </header>
