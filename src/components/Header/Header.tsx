@@ -1,11 +1,18 @@
+import type { Dispatch, SetStateAction } from "react";
 import { useContextMenu } from "../../hooks/useContextMenu";
 import { UnitsMenu } from "./UnitsMenu";
 import LogoIcon from "../../assets/images/logo.svg";
 import UnitsIcon from "../../assets/images/icon-units.svg";
 import DropDownIcon from "../../assets/images/icon-dropdown.svg";
+import type { UnitsState } from "../../types/unitsState";
 import "./Header.css";
 
-export function Header() {
+interface HeaderProps {
+  units: UnitsState;
+  setUnits: Dispatch<SetStateAction<UnitsState>>;
+};
+
+export function Header({ units, setUnits }: HeaderProps) {
   const { openId, menuPosition, handleMoreClick, closeMenu } = useContextMenu();
   
   return (
@@ -28,7 +35,12 @@ export function Header() {
         </div>
 
         { openId === "units" && menuPosition && (
-          <UnitsMenu menuPosition={menuPosition} closeMenu={closeMenu} />
+          <UnitsMenu 
+            menuPosition={menuPosition} 
+            closeMenu={closeMenu} 
+            units={units}
+            setUnits={setUnits}
+          />
         )} 
       </div>
       

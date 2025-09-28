@@ -32,7 +32,7 @@ export const UNITS_CONFIG: UnitsGroupConfig[] = [
     ariaLabel: "Precipitation units",
     options: [
       { label: "Millimeters (mm)", value: "mm" },
-      { label: "Inches (in)", value: "in" }
+      { label: "Inches (in)", value: "inch" }
     ]
   }
 ];

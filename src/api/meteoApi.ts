@@ -1,5 +1,6 @@
 import { fetchWeatherApi } from 'openmeteo';
 import type { WeatherData } from '../types/weather';
+import type { UnitsState } from '../types/unitsState';
 
 const BASE_URL = "https://api.open-meteo.com/v1/forecast";
 
@@ -7,7 +8,7 @@ function toNumberArray(arr: Float32Array | null | undefined): number[] {
   return arr ? Array.from(arr) : [];
 }
 
-export async function getWeather(): Promise<WeatherData> {
+export async function getWeather(units: UnitsState): Promise<WeatherData> {
   const params = {
     latitude: 51.672,
     longitude: 39.1843,
@@ -21,7 +22,10 @@ export async function getWeather(): Promise<WeatherData> {
       "wind_speed_10m", 
       "apparent_temperature"
     ],
-    timezone: "Europe/Moscow"
+    timezone: "Europe/Moscow",
+    temperature_unit: units.temperature,
+    wind_speed_unit: units.wind,
+    precipitation_unit: units.precipitation
   };
 
   const responses = await fetchWeatherApi(BASE_URL, params);

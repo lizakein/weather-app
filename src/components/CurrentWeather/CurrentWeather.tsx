@@ -1,3 +1,4 @@
+import type { UnitsState } from "../../types/unitsState";
 import type { WeatherData } from "../../types/weather";
 import { formatFullDate, formatNumber } from "../../utils/format";
 import { getWeatherIcon } from "../../utils/getWeatherIcon";
@@ -5,9 +6,10 @@ import "./CurrentWeather.css";
 
 interface CurrentWeatherProps {
   data: WeatherData;
+  units: UnitsState;
 };
 
-export function CurrentWeather({ data }: CurrentWeatherProps) {
+export function CurrentWeather({ data, units }: CurrentWeatherProps) {
   const currentData = data.current;
 
   const { src, alt } = getWeatherIcon(currentData.weather_code);
@@ -35,11 +37,19 @@ export function CurrentWeather({ data }: CurrentWeatherProps) {
         </div>
         <div className="weather__detail">
           <dt className="weather__label">Wind</dt>
-          <dd className="weather__value">{formatNumber(currentData.wind_speed_10m)} km/h</dd>
+          <dd className="weather__value">
+            {formatNumber(currentData.wind_speed_10m)} 
+            &nbsp;
+            {units.wind === "kmh" ? "km/h" : "mph"}
+          </dd>
         </div>
         <div className="weather__detail">
           <dt className="weather__label">Precipitation</dt>
-          <dd className="weather__value">{formatNumber(currentData.precipitation)} mm</dd>
+          <dd className="weather__value">
+            {formatNumber(currentData.precipitation)} 
+            &nbsp;
+            {units.precipitation === "mm" ? "mm" : "in"}
+          </dd>
         </div>
       </dl>
     </section>
