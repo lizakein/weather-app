@@ -37,7 +37,7 @@ export function CurrentWeather({ data }: CurrentWeatherProps) {
         </div>
         <div className="weather__detail">
           <dt className="weather__label">Precipitation</dt>
-          <dd className="weather__value">{currentData.precipitation} mm</dd>
+          <dd className="weather__value">{formatNumber(currentData.precipitation)} mm</dd>
         </div>
       </dl>
     </section>
