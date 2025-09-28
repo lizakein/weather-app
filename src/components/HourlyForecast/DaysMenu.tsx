@@ -5,10 +5,14 @@ import "./DaysMenu.css";
 interface DaysMenuProps {
   menuPosition: MenuPosition;
   closeMenu: () => void;
-  daysOfWeek: string[];
+  days: Date[];
+  onSelectDay: (day: Date) => void;
 };
 
-export function DaysMenu({ menuPosition, closeMenu, daysOfWeek }: DaysMenuProps) {
+const daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+export function DaysMenu({ menuPosition, closeMenu, days, onSelectDay }: DaysMenuProps) {
+
   return (
     <OptionsWindow position={menuPosition!} onClose={closeMenu}>
       <ul 
@@ -16,13 +20,17 @@ export function DaysMenu({ menuPosition, closeMenu, daysOfWeek }: DaysMenuProps)
         className="hourly-forecast__menu"
         role="menu"
       >
-        {daysOfWeek.map(day => (
-          <li key={day}>
+        {days.map((date, i) => (
+          <li key={i}>
             <button
               className="hourly-forecast__menu-item"
               role="menuitem"
+              onClick={() => {
+                onSelectDay(date);
+                closeMenu();
+              }}
             >
-              {day}
+              {daysOfWeek[date.getDay()]}
             </button>
           </li>
         ))}

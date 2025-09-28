@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { WeatherData } from "../../types/weather";
 import { useContextMenu } from "../../hooks/useContextMenu";
 import { transformHourly } from "../../utils/transformHourly";
@@ -13,10 +14,19 @@ interface HourlyForecastProps {
 
 export function HourlyForecast({ data }: HourlyForecastProps) {
   const { openId, menuPosition, handleMoreClick, closeMenu } = useContextMenu();
-  
+  const [selectedDay, setSelectedDay] = useState(new Date());
+
   const hourlyData = transformHourly(data.hourly);
-  const today = 1;
-  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+  const filterByDay = (hourlyData: {time: Date; temperature_2m: number; }[], selectedDay: Date) => {
+    return hourlyData.filter(hour => 
+      hour.time.getDate() === selectedDay.getDate() &&
+      hour.time.getMonth() === selectedDay.getMonth()
+    );
+  };
+  const filteredData = filterByDay(hourlyData, selectedDay);
+  
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   
   return (
     <section className="hourly-forecast" aria-label="Hourly forecast">
@@ -31,18 +41,23 @@ export function HourlyForecast({ data }: HourlyForecastProps) {
             aria-controls="days-menu"
             onClick={e => handleMoreClick(e, "day")}
           >
-            <span className="hourly-forecast__button-text">{daysOfWeek[today]}</span>
+            <span className="hourly-forecast__button-text">{daysOfWeek[selectedDay.getDay()]}</span>
             <img src={DropDownIcon} alt="" className="hourly-forecast__dropdown-icon"/> 
           </button>
 
 					{ openId === "day" && menuPosition &&
-						<DaysMenu menuPosition={menuPosition} closeMenu={closeMenu} daysOfWeek={daysOfWeek} />
+						<DaysMenu 
+              menuPosition={menuPosition} 
+              closeMenu={closeMenu} 
+              days={data.daily.time.map(d => new Date(d))}
+              onSelectDay={setSelectedDay}
+            />
 					}
         </div>   
       </div>
       
       <ul className="hourly-forecast__list">
-        { hourlyData.map((hour, index) => {
+        { filteredData.map((hour, index) => {
           const temp = formatNumber(hour.temperature_2m);
 
           return (
