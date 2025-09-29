@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
+import { SearchDropdown } from "./SearchDropdown";
+import type { City } from "../../types/city";
 import SearchIcon from "../../assets/images/icon-search.svg";
 import "./Search.css";
-import { OptionsWindow } from "../../shared/OptionsWindow";
+
 
 interface SearchProps {
   onSelectCity: (coords: { 
@@ -10,15 +12,6 @@ interface SearchProps {
     city: string, 
     country: string 
   }) => void;
-};
-
-interface City {
-  id: number;
-  name: string;
-  country: string;
-  latitude: number;
-  longitude: number;
-  admin1?: string;
 };
 
 export function Search({ onSelectCity }: SearchProps) {
@@ -94,41 +87,13 @@ export function Search({ onSelectCity }: SearchProps) {
         <button type="submit" className="search__button">Search</button>
 
         {results.length > 0 && sectionRef.current && (
-          <OptionsWindow
-            position={{
-              top: sectionRef.current.getBoundingClientRect().bottom + window.scrollY + 8,
-              left: sectionRef.current.getBoundingClientRect().right + window.scrollX
-            }}
-            onClose={() => setResults([])}
-          >
-            {loading && 
-              <p 
-                className="search-city__loading" 
-                style={{ width: sectionRef.current.offsetWidth - 16 }}
-              >
-                Loading...
-              </p>
-            }
-
-            { !loading &&
-              <ul 
-                className="search__dropdown"
-                style={{ width: sectionRef.current.offsetWidth - 16 }}
-              >
-                {results.map((city) => (
-                  <li 
-                    key={`${city.id}-${city.latitude}-${city.longitude}`}
-                    onClick={() => handleSelect(city)}
-                    className="search__option"
-                  >
-                    {city.name}
-                    {city.admin1 ? `, ${city.admin1}` : ""}
-                    {`, ${city.country}`}
-                  </li>
-                ))}
-              </ul>
-            }
-          </OptionsWindow>
+          <SearchDropdown 
+            loading={loading}
+            sectionRef={sectionRef}
+            results={results}
+            setResults={setResults}
+            handleSelect={handleSelect}
+          />
         )}
       </form>   
     </> 
