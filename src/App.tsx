@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Home } from './pages/Home';
 import { useWeather } from './hooks/useWeather';
 import type { UnitsState } from './types/unitsState';
@@ -25,6 +25,23 @@ function App() {
     coords?.lat ?? DEFAULT_COORDS.lat, 
     coords?.lon ?? DEFAULT_COORDS.lon
   );
+
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;   
+        setCoords({
+          lat: latitude,
+          lon: longitude,
+          city: "Your location",
+          country: ""
+        });
+      },
+      (error) => console.log("Geolocation disabled", error)
+    );
+  }, []);
 
   return (
     <>
