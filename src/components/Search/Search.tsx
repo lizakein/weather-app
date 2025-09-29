@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SearchIcon from "../../assets/images/icon-search.svg";
 import "./Search.css";
+import { OptionsWindow } from "../../shared/OptionsWindow";
 
 interface SearchProps {
   onSelectCity: (coords: { 
@@ -24,6 +25,8 @@ export function Search({ onSelectCity }: SearchProps) {
   const [ query, setQuery ] = useState("");
   const [ results, setResults ] = useState<City[]>([]);
   const [ loading, setLoading ] = useState(false);
+  
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const handleSearch = async (value: string) => {
     setQuery(value);
@@ -60,7 +63,6 @@ export function Search({ onSelectCity }: SearchProps) {
     setResults([]);
   };
 
-
   return (
     <>
       <form
@@ -69,7 +71,7 @@ export function Search({ onSelectCity }: SearchProps) {
         aria-label='Site search'
         onSubmit={(e) => e.preventDefault()}
       >
-        <div className="search__section">
+        <div className="search__section" ref={sectionRef}>
           <img 
             src={SearchIcon} 
             alt="" 
@@ -84,30 +86,50 @@ export function Search({ onSelectCity }: SearchProps) {
             placeholder='Search for a place...'
             aria-label='Search'
             value={query}
+            autoComplete="off"
             onChange={(e) => handleSearch(e.target.value)}
           />
         </div>
         
         <button type="submit" className="search__button">Search</button>
 
-        <div>
-          {loading && <p className="search-city__loading">Loading...</p>}
+        {results.length > 0 && sectionRef.current && (
+          <OptionsWindow
+            position={{
+              top: sectionRef.current.getBoundingClientRect().bottom + window.scrollY + 8,
+              left: sectionRef.current.getBoundingClientRect().right + window.scrollX
+            }}
+            onClose={() => setResults([])}
+          >
+            {loading && 
+              <p 
+                className="search-city__loading" 
+                style={{ width: sectionRef.current.offsetWidth - 16 }}
+              >
+                Loading...
+              </p>
+            }
 
-          {results.length > 0 && (
-            <ul>
-              {results.map((city) => (
-                <li 
-                  key={`${city.id}-${city.latitude}-${city.longitude}`}
-                  onClick={() => handleSelect(city)}
-                >
-                  {city.name}
-                  {city.admin1 ? `, ${city.admin1}` : ""}
-                  {`, ${city.country}`}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+            { !loading &&
+              <ul 
+                className="search__dropdown"
+                style={{ width: sectionRef.current.offsetWidth - 16 }}
+              >
+                {results.map((city) => (
+                  <li 
+                    key={`${city.id}-${city.latitude}-${city.longitude}`}
+                    onClick={() => handleSelect(city)}
+                    className="search__option"
+                  >
+                    {city.name}
+                    {city.admin1 ? `, ${city.admin1}` : ""}
+                    {`, ${city.country}`}
+                  </li>
+                ))}
+              </ul>
+            }
+          </OptionsWindow>
+        )}
       </form>   
     </> 
   );
