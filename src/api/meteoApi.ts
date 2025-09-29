@@ -8,10 +8,10 @@ function toNumberArray(arr: Float32Array | null | undefined): number[] {
   return arr ? Array.from(arr) : [];
 }
 
-export async function getWeather(units: UnitsState): Promise<WeatherData> {
+export async function getWeather(units: UnitsState, lat: number, lon: number): Promise<WeatherData> {
   const params = {
-    latitude: 51.672,
-    longitude: 39.1843,
+    latitude: lat,
+    longitude: lon,
     daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
     hourly: ["temperature_2m", "weather_code"],
     current: [

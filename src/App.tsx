@@ -4,6 +4,13 @@ import { useWeather } from './hooks/useWeather';
 import type { UnitsState } from './types/unitsState';
 import './App.css';
 
+const DEFAULT_COORDS = { 
+  lat: 52.52, 
+  lon: 13.405, 
+  city: "Berlin", 
+  country: "Germany" 
+};
+
 function App() {
   const [ units, setUnits ] = useState<UnitsState>({
     temperature: "celsius",
@@ -11,13 +18,27 @@ function App() {
     precipitation: "mm"
   });
 
-  const { data } = useWeather(units);
+  const [ coords, setCoords ] = useState(DEFAULT_COORDS);
 
-  if (!data) return <div>Loading...</div>;
+  const { data, loading, error } = useWeather(
+    units, 
+    coords?.lat ?? DEFAULT_COORDS.lat, 
+    coords?.lon ?? DEFAULT_COORDS.lon
+  );
 
   return (
     <>
-      <Home data={data} units={units} setUnits={setUnits} />
+      { loading && <div>Loading...</div> }
+      { error && <div>Error: {error}</div> }
+      { data && coords &&
+        <Home 
+          data={data} 
+          units={units} 
+          setUnits={setUnits}
+          selectedCity={coords}
+          onSelectCity={setCoords}
+        /> 
+      }
     </>
   )
 }

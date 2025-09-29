@@ -7,9 +7,15 @@ import "./CurrentWeather.css";
 interface CurrentWeatherProps {
   data: WeatherData;
   units: UnitsState;
+  selectedCity: { 
+    lat: number, 
+    lon: number, 
+    city: string, 
+    country: string 
+  };
 };
 
-export function CurrentWeather({ data, units }: CurrentWeatherProps) {
+export function CurrentWeather({ data, units, selectedCity }: CurrentWeatherProps) {
   const currentData = data.current;
 
   const { src, alt } = getWeatherIcon(currentData.weather_code);
@@ -18,7 +24,9 @@ export function CurrentWeather({ data, units }: CurrentWeatherProps) {
     <section className="weather" aria-label="Current weather">
       <header className="weather__header">
         <div className="weather__location-info">
-          <h2 className="weather__place">Berlin, Germany</h2>
+          <h2 className="weather__place">
+            {`${selectedCity.city}, ${selectedCity.country}`}
+          </h2>
           <h3 className="weather__date">{formatFullDate(currentData.time)}</h3>
         </div>  
         <div className="weather__temperature-container">

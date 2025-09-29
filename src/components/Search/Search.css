@@ -33,6 +33,7 @@
 }
 
 .search__input {
+  width: 100%;
   outline: none;
   background-color: inherit;
   color: var(--neutral-200);

@@ -11,20 +11,36 @@ interface HomeProps {
   data: WeatherData;
   units: UnitsState;
   setUnits: Dispatch<SetStateAction<UnitsState>>;
+  selectedCity: { 
+    lat: number, 
+    lon: number, 
+    city: string, 
+    country: string 
+  };
+  onSelectCity: (coords: { 
+    lat: number, 
+    lon: number, 
+    city: string, 
+    country: string 
+  }) => void;
 };
 
-export function Home({ data, units, setUnits }: HomeProps) {
+export function Home({ data, units, setUnits, selectedCity, onSelectCity }: HomeProps) {
   if (!data) return <div>Loading...</div>;
 
   return (
     <>
       <Header units={units} setUnits={setUnits} />
       <div className="main-content">
-        <Search />
+        <Search onSelectCity={onSelectCity} />
 
         <div className="weather-card">
           <div className="weather-column">
-            <CurrentWeather data={data} units={units} />
+            <CurrentWeather 
+              data={data} 
+              units={units} 
+              selectedCity={selectedCity} 
+            />
             <DailyForecast data={data} />
           </div>
           
