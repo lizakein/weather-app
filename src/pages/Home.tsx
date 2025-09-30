@@ -32,6 +32,8 @@ export function Home({ data, units, setUnits, selectedCity, onSelectCity }: Home
     <>
       <Header units={units} setUnits={setUnits} />
       <div className="main-content">
+        <h1 className="header__title">How's the sky looking today?</h1>
+        
         <Search onSelectCity={onSelectCity} />
 
         <div className="weather-card">

@@ -43,8 +43,6 @@ export function Header({ units, setUnits }: HeaderProps) {
           />
         )} 
       </div>
-      
-      <h1 className="header__title">How's the sky looking today?</h1>
     </header>
   );
 }

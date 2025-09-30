@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Home } from './pages/Home';
+import { ErrorPage } from './pages/ErrorPage';
 import { useWeather } from './hooks/useWeather';
 import type { UnitsState } from './types/unitsState';
 import './App.css';
@@ -46,7 +47,9 @@ function App() {
   return (
     <>
       { loading && <div>Loading...</div> }
-      { error && <div>Error: {error}</div> }
+      {  error &&
+        <ErrorPage units={units} setUnits={setUnits} />
+      }
       { data && coords &&
         <Home 
           data={data} 
