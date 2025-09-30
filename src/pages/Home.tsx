@@ -4,11 +4,12 @@ import { DailyForecast } from "../components/DailyForecast/DailyForecast";
 import { Header } from "../components/Header/Header";
 import { HourlyForecast } from "../components/HourlyForecast/HourlyForecast";
 import { Search } from "../components/Search/Search";
+import { LoadingScreen } from '../components/Sceleton/LoadingScreen';
 import type { UnitsState } from "../types/unitsState";
 import type { WeatherData } from "../types/weather";
 
 interface HomeProps {
-  data: WeatherData;
+  data: WeatherData | null;
   units: UnitsState;
   setUnits: Dispatch<SetStateAction<UnitsState>>;
   selectedCity: { 
@@ -23,36 +24,45 @@ interface HomeProps {
     city: string, 
     country: string 
   }) => void;
+  loading: boolean;
 };
 
-export function Home({ data, units, setUnits, selectedCity, onSelectCity }: HomeProps) {
-  if (!data) return <div>Loading...</div>;
-
+export function Home({ 
+  data, 
+  units, 
+  setUnits, 
+  selectedCity, 
+  onSelectCity, 
+  loading 
+}: HomeProps) {
   return (
     <>
       <Header units={units} setUnits={setUnits} />
-      <div className="main-content">
-        <h1 className="header__title">How's the sky looking today?</h1>
-        
+      <h1 className="header__title">How's the sky looking today?</h1>
+      <div className="main-content">        
         <Search onSelectCity={onSelectCity} />
 
-        <div className="weather-card">
-          <div className="weather-column">
-            <CurrentWeather 
-              data={data} 
-              units={units} 
-              selectedCity={selectedCity} 
-            />
-            <DailyForecast data={data} />
+        { loading && <LoadingScreen /> }
+
+        { !loading && data &&
+          <div className="weather-card">
+            <div className="weather-column">
+              <CurrentWeather 
+                data={data} 
+                units={units} 
+                selectedCity={selectedCity} 
+              />
+              <DailyForecast data={data} />
+            </div>
+            
+            <div className="weather-column weather-column--scroll">
+              <div className="hourly-viewport">
+                <HourlyForecast data={data} />
+              </div>
+            </div>
           </div>
-          
-          <div className="weather-column weather-column--scroll">
-            <div className="hourly-viewport">
-              <HourlyForecast data={data} />
-            </div>        
-          </div>
-        </div>
-      </div>   
+        }
+      </div>
     </>
   );
 }

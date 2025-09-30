@@ -1,0 +1,79 @@
+/* Skeleton-анимация */
+.skeleton-block {
+  position: relative;
+  overflow: hidden;
+  background-color: hsl(243, 23%, 30%);
+  border-radius: 0.75rem;
+}
+
+.skeleton-block::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    hsla(243, 23%, 30%, 0) 0%,
+    hsla(243, 27%, 20%, 0.3) 50%,
+    hsla(243, 23%, 30%, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -150%; }
+  100% { left: 100%; }
+}
+
+
+/* ========== LOADING DOTS ========== */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.loading__dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 14px;
+}
+
+.loading__dots span {
+  width: 12px;
+  aspect-ratio: 1 / 1;
+  background-color: var(--neutral-200);
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.loading__dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loading__dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+.loading__text {
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--neutral-200);
+}

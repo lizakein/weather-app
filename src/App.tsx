@@ -3,6 +3,7 @@ import { Home } from './pages/Home';
 import { ErrorPage } from './pages/ErrorPage';
 import { useWeather } from './hooks/useWeather';
 import type { UnitsState } from './types/unitsState';
+import "react-loading-skeleton/dist/skeleton.css";
 import './App.css';
 
 const DEFAULT_COORDS = { 
@@ -46,17 +47,17 @@ function App() {
 
   return (
     <>
-      { loading && <div>Loading...</div> }
-      {  error &&
+      { error &&
         <ErrorPage units={units} setUnits={setUnits} />
       }
-      { data && coords &&
+      { (data && coords || loading) &&
         <Home 
           data={data} 
           units={units} 
           setUnits={setUnits}
           selectedCity={coords}
           onSelectCity={setCoords}
+          loading={loading}
         /> 
       }
     </>
