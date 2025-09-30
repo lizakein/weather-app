@@ -3,6 +3,7 @@ import type { UnitsState } from '../types/unitsState';
 import { Header } from "../components/Header/Header";
 import ErrorIcon from "../assets/images/icon-error.svg";
 import RetryIcon from "../assets/images/icon-retry.svg";
+import "./ErrorPage.css";
 
 interface ErrorPageProps {
   units: UnitsState;
