@@ -62,10 +62,12 @@
   font-size: 1rem;
 }
 
-.search__option:hover,
-.search__option:active {
-  background-color: var(--neutral-700);
-  border: 1px solid var(--neutral-600);
+.search__loading {
+  padding: 0.5rem;
+}
+
+.search__loading-icon {
+  margin-inline-end: 1rem;
 }
 
 /* ========== ACTIVE STATE ========== */
@@ -88,6 +90,12 @@
 .search__button:focus-within {
   outline: 2px solid var(--blue-500);
   outline-offset: 3px;
+}
+
+.search__option:hover,
+.search__option:active {
+  background-color: var(--neutral-700);
+  border: 1px solid var(--neutral-600);
 }
 
 /* ========== MEDIA QUERIES ========== */

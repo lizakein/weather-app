@@ -1,5 +1,6 @@
 import { OptionsWindow } from "../../shared/OptionsWindow";
 import type { City } from "../../types/city";
+import LoadingIcon from "../../assets/images/icon-loading.svg";
 
 interface SearchDropdownProps {
   loading: boolean;
@@ -31,10 +32,11 @@ export function SearchDropdown({
     >
       {loading && 
         <p 
-          className="search-city__loading" 
+          className="search__loading" 
           style={{ width }}
         >
-          Loading...
+          <img src={LoadingIcon} alt="" className="search__loading-icon" />
+          Search in progress
         </p>
       }
 
