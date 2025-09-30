@@ -1,0 +1,13 @@
+.home__title {
+  margin-block-end: clamp(3rem, 8vw, 4rem);
+  text-align: center;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 3.25rem;
+  letter-spacing: 1.2px;
+}
+
+.home__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 3.5vw, 3rem);
+}
