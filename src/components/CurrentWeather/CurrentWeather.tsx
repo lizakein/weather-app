@@ -46,7 +46,7 @@ export function CurrentWeather({ data, units, selectedCity }: CurrentWeatherProp
       </header>
       <dl className="weather__details">
         { details.map(({label, value}) => (
-          <div className="weather__detail">
+          <div key={label} className="weather__detail">
             <dt className="weather__label">{label}</dt>
             <dd className="weather__value">{value}</dd>
           </div>

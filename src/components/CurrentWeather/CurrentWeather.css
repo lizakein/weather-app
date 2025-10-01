@@ -28,11 +28,9 @@
 
 .weather__place { 
   font-size: var(--font-l);
-  font-weight: 700;
 }
 
 .weather__date {
-  font-size: var(--font-s);
   font-weight: 500;
 }
 
