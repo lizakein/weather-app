@@ -1,11 +1,11 @@
 .hourly-forecast {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1.25rem 1rem;
+  gap: var(--space-s);
+  padding: var(--space-m) var(--space-s);
 
   background-color: var(--neutral-800);
-  border-radius: 1.25rem;
+  border-radius: var(--radius-m);
 
   min-height: 0;
 }
@@ -18,29 +18,35 @@
 
 .hourly-forecast__title {
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: var(--font-m);
 }
 
 .hourly-forecast__button {
   display: flex;
-  gap: 0.75rem;
-  padding: 0.5rem 1rem;
+  gap: var(--space-xs);
+  padding: 0.5rem var(--space-s);
 
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: var(--font-xs);
 
   border: none;
   border-radius: 0.5rem;
   background-color: var(--neutral-600);
   color: var(--neutral-0);
   cursor: pointer;
+
+  transition: 0.3s ease-in background-color;
+}
+
+.hourly-forecast__button:hover {
+  background-color: var(--neutral-700);
 }
 
 .hourly-forecast__list {
   display: flex;
   flex-direction: column;
-  gap: 1rem; 
+  gap: var(--space-s); 
   flex: 1 1 auto;
   min-height: 0;
 
@@ -54,11 +60,11 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.625rem 1rem 0.625rem 0.75rem;
+  padding: var(--space-xxs) var(--space-s) var(--space-xxs) var(--space-xs);
 
   background-color: var(--neutral-700);
   border: 1px solid var(--neutral-600);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-s);
 }
 
 .hourly-forecast__time-block {
@@ -73,10 +79,16 @@
 
 .hourly-forecast__time {
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: var(--font-m);
 }
 
 .hourly-forecast__temperature {
   font-weight: 500;
-  font-size: 1rem;
+  font-size: var(--font-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hourly-forecast__button {
+    transition: none;
+  }
 }
