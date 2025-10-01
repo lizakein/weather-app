@@ -7,7 +7,7 @@ import SnowIcon from "../assets/images/icon-snow.webp";
 import StormIcon from "../assets/images/icon-storm.webp";
 import SunnyIcon from "../assets/images/icon-sunny.webp";
 
-type WeatherIcon = {
+export type WeatherIcon = {
   src: string;
   alt: string;
 };
