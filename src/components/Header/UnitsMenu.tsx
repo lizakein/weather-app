@@ -1,10 +1,10 @@
-import { type Dispatch, type SetStateAction } from "react";
+import { useCallback, type Dispatch, type SetStateAction } from "react";
 import { UNITS_CONFIG } from "../../config/unitsConfig";
 import type { MenuPosition } from "../../hooks/useContextMenu";
 import { OptionsWindow } from "../../shared/OptionsWindow";
+import type { UnitsState } from "../../types/unitsState";
 import { UnitsGroup } from "./UnitsGroup";
 import "./UnitsMenu.css";
-import type { UnitsState } from "../../types/unitsState";
 
 interface UnitsMenuProps {
   menuPosition: MenuPosition;
@@ -14,12 +14,23 @@ interface UnitsMenuProps {
 };
 
 export function UnitsMenu({ menuPosition, closeMenu, units, setUnits }: UnitsMenuProps) {
-  const handleSelect = (groupId: string, value: string) => {
-    setUnits(prev => ({ ...prev, [groupId]: value }))
-  };
+  const handleSelect = useCallback(
+    (groupId: keyof UnitsState, value: string) => {
+      setUnits(prev => ({ ...prev, [groupId]: value }));
+    },
+    [setUnits]
+  );
+
+  const handleSwitch = useCallback(() => {
+    setUnits(prev => ({
+      temperature: prev.temperature === "celsius" ? "fahrenheit" : "celsius",
+      wind: prev.wind === "kmh" ? "mph" : "kmh",
+      precipitation: prev.precipitation === "mm" ? "inch" : "mm",
+    }));
+  }, [setUnits]);
 
   return (
-    <OptionsWindow position={menuPosition!} onClose={closeMenu}>
+    <OptionsWindow position={menuPosition} onClose={closeMenu}>
       <div 
         id="units-menu"
         className="units-window"
@@ -29,13 +40,7 @@ export function UnitsMenu({ menuPosition, closeMenu, units, setUnits }: UnitsMen
         <button 
           className="units-window__switch" 
           role="menuitem"
-          onClick={() => {
-            setUnits(
-              units.temperature === 'celsius' ?
-              { temperature: 'fahrenheit', wind: 'mph', precipitation: 'inch'} :
-              { temperature: 'celsius', wind: 'kmh', precipitation: 'mm'}
-            );
-          }}
+          onClick={handleSwitch}
         >
           Switch to {units.temperature === 'celsius' ? 'Imperial' : 'Metric'}
         </button>
@@ -43,7 +48,7 @@ export function UnitsMenu({ menuPosition, closeMenu, units, setUnits }: UnitsMen
         {UNITS_CONFIG.map(group => (
           <UnitsGroup 
             key={group.id}
-            id={group.id}
+            id={group.id as keyof UnitsState}
             section={group.section}
             ariaLabel={group.ariaLabel}
             options={group.options}

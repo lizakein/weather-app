@@ -1,13 +1,14 @@
 import type { UnitOption } from "../../config/unitsConfig";
 import CheckmarkIcon from "../../assets/images/icon-checkmark.svg";
+import type { UnitsState } from "../../types/unitsState";
 
 interface UnitsGroupProps {
-  id: string;
+  id: keyof UnitsState;
   section: string;
   ariaLabel: string;
   options: UnitOption[];
   selected: string;
-  onSelect: (groupId: string, value: string) => void;
+  onSelect: (groupId: keyof UnitsState, value: string) => void;
 };
 
 export function UnitsGroup({ id, section, ariaLabel, options, selected, onSelect }: UnitsGroupProps) {
