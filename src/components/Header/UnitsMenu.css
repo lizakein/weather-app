@@ -1,6 +1,6 @@
 .units-window__section {
   padding: 0.275rem 0.5rem;
-  font-size: 0.875rem;
+  font-size: var(--font-xxs);
   font-weight: 500;
   color: var(--neutral-300);
   border-top: 1px solid var(--neutral-600);
@@ -14,13 +14,17 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: 0.625rem 0.5rem;
+  padding: var(--spave-xxs) 0.5rem;
+
+  transition: 0.2s ease-in background-color;
 }
 
 .units-window__option {
   display: flex;
   justify-content: space-between;
-  padding: 0.625rem 0.5rem;
+  padding: var(--spave-xxs) 0.5rem;
+
+  transition: 0.2s ease-in background-color;
 }
 
 .units-window__option:hover,
@@ -34,4 +38,11 @@
 .units-window__switch:active {
   outline: 1px solid var(--neutral-0);
   outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .options-window .units-window__switch,
+  .units-window__option {
+    transition: none;
+  }
 }
