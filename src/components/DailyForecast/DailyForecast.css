@@ -1,28 +1,26 @@
 .daily-forecast__title {
-  margin-block-end: 1.25rem;
-
+  margin-block-end: var(--space-m);
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: var(--font-m);
 }
 
 .daily-forecast__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(5.25rem, 1fr));
-  gap: 1rem;
+  gap: var(--space-s);
 }
 
 .daily-forecast__item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 0.625rem;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-xxs);
 
   font-weight: 500;
-  font-size: 1.125rem;
   background-color: var(--neutral-800);
   border: 1px solid var(--neutral-600);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-s);
 }
 
 .daily-forecast__icon {
