@@ -24,6 +24,12 @@ export function SearchDropdown({
   const rect = sectionRef.current.getBoundingClientRect();
   const width = sectionRef.current.offsetWidth - 16;
 
+  console.log({
+    loading, error, resultsLength: results.length,
+    sectionExists: !!sectionRef.current,
+    widthRaw: sectionRef.current?.offsetWidth - 16
+  });
+
   return (
     <OptionsWindow
       position={{
@@ -32,30 +38,52 @@ export function SearchDropdown({
       }}
       onClose={() => setResults([])}
     >
-      {loading && 
+      { loading && 
         <p 
           className="search__loading" 
-          style={{ width }}
+          style={{ "--dropdown-width": `${width}px` } as React.CSSProperties}
         >
           <img src={LoadingIcon} alt="" className="search__loading-icon" />
           Search in progress
         </p>
       }
 
-      { !loading &&
+      { error && !loading && (
+        <p 
+          className="search__error"
+          style={{ "--dropdown-width": `${width}px` } as React.CSSProperties}
+        >
+          { error }
+        </p>
+      )}
+
+      { !loading && !error && results.length === 0 && (
+        <p
+          className="search__empty"
+          style={{ "--dropdown-width": `${width}px` } as React.CSSProperties}
+        >
+          No result found
+        </p>
+      )}
+
+      { results.length > 0 && !loading &&
         <ul 
           className="search__dropdown"
-          style={{ width }}
+          style={{ "--dropdown-width": `${width}px` } as React.CSSProperties}
         >
           {results.map((city) => (
             <li 
-              key={`${city.id}-${city.latitude}-${city.longitude}`}
-              onClick={() => handleSelect(city)}
+              key={`${city.id}-${city.latitude}-${city.longitude}`} 
               className="search__option"
             >
-              {city.name}
-              {city.admin1 ? `, ${city.admin1}` : ""}
-              {`, ${city.country}`}
+              <button
+                type="button"          
+                onClick={() => handleSelect(city)}
+              >
+                {city.name}
+                {city.admin1 ? `, ${city.admin1}` : ""},
+                {city.country}
+              </button>
             </li>
           ))}
         </ul>

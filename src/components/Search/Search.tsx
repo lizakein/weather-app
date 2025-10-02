@@ -85,7 +85,7 @@ export function Search({ onSelectCity }: SearchProps) {
         
         <button type="submit" className="search__button">Search</button>
 
-        {(results.length > 0 || loading || error) && sectionRef.current && (
+        { query.length >= 2 && sectionRef.current && (
           <SearchDropdown 
             loading={loading}
             error={error}
