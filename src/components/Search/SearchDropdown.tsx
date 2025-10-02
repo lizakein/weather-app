@@ -4,6 +4,7 @@ import LoadingIcon from "../../assets/images/icon-loading.svg";
 
 interface SearchDropdownProps {
   loading: boolean;
+  error: string | null;
   sectionRef: React.RefObject<HTMLDivElement | null>;
   results: City[];
   setResults: React.Dispatch<React.SetStateAction<City[]>>;
@@ -12,6 +13,7 @@ interface SearchDropdownProps {
 
 export function SearchDropdown({ 
   loading, 
+  error,
   sectionRef, 
   results, 
   setResults, 

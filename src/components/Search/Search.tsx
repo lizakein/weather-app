@@ -1,51 +1,50 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SearchDropdown } from "./SearchDropdown";
+import { fetchCities } from "../../api/geocodingApi";
 import type { City } from "../../types/city";
+import type { HomeCity } from "../../types/homeCity";
 import SearchIcon from "../../assets/images/icon-search.svg";
 import "./Search.css";
 
-
 interface SearchProps {
-  onSelectCity: (coords: { 
-    lat: number, 
-    lon: number, 
-    city: string, 
-    country: string 
-  }) => void;
+  onSelectCity: (coords: HomeCity) => void;
 };
 
 export function Search({ onSelectCity }: SearchProps) {
   const [ query, setQuery ] = useState("");
   const [ results, setResults ] = useState<City[]>([]);
   const [ loading, setLoading ] = useState(false);
+  const [ error, setError ] = useState<string | null>(null);
   
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSearch = async (value: string) => {
-    setQuery(value);
+  useEffect(() => {
     if (query.length < 2) {
       setResults([]);
+      setError(null);
       return;
     }
 
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
-          query
-        )}&count=5&language=en&format=json`
-      );
-      const data = await res.json();
-      setResults(data.results || []);
-    } catch (err) {
-      console.error("Geocoding error: ", err);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      setError(null);
 
-  const handleSelect = (city: City) => {
+      try {
+        const cities = await fetchCities(query);
+        setResults(cities);
+      } catch (err) {
+        console.error("Geocoding error: ", err);
+        setError("Failed to fetch results");
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [query])
+
+  const handleSelect = useCallback((city: City) => {
     onSelectCity({ 
       lat: city.latitude, 
       lon: city.longitude, 
@@ -54,7 +53,7 @@ export function Search({ onSelectCity }: SearchProps) {
     });
     setQuery("");
     setResults([]);
-  };
+  }, [onSelectCity]);
 
   return (
     <>
@@ -80,15 +79,16 @@ export function Search({ onSelectCity }: SearchProps) {
             aria-label='Search'
             value={query}
             autoComplete="off"
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
         
         <button type="submit" className="search__button">Search</button>
 
-        {results.length > 0 && sectionRef.current && (
+        {(results.length > 0 || loading || error) && sectionRef.current && (
           <SearchDropdown 
             loading={loading}
+            error={error}
             sectionRef={sectionRef}
             results={results}
             setResults={setResults}
