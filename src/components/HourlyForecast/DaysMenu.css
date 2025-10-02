@@ -3,6 +3,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0.625rem 0.5rem;
+  transition: 0.3s ease-in background-color;
 }
 
 .hourly-forecast__menu {
@@ -17,4 +18,10 @@
 .hourly-forecast__menu-item:active {
   outline: 1px solid var(--neutral-0);
   outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .options-window .hourly-forecast__menu-item {
+    transition: none;
+  }
 }
