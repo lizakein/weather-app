@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-
 .bricolage-grotesque-font {
   font-family: "Bricolage Grotesque", sans-serif;
   font-optical-sizing: auto;
@@ -55,8 +52,8 @@
   --radius-m: 1.25rem;
 
 
-  --page-block-padding: clamp(1rem, 4vw, 3rem);
-  --page-inline-padding: clamp(1rem, 3.5vw, 5rem);
+  --page-block-padding: clamp(var(--space-s), 4vw, 3rem);
+  --page-inline-padding: clamp(var(--space-s), 3.5vw, 5rem);
 }
 
 *,
@@ -71,35 +68,29 @@ body {
   padding: var(--page-block-padding) var(--page-inline-padding);
 
   font-family: "DM Sans", sans-serif;
-  font-size: 1.125rem;
+  font-size: var(--font-s);
   line-height: 1.2;
 
   background-color: var(--neutral-900);
   color: var(--neutral-0);
 }
 
-.weather-card {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2rem, 3.5vw, 3rem);
-}
-
+.weather-card,
 .weather-column {
   display: flex;
   flex-direction: column;
-  gap: clamp(2rem, 3.5vw, 3rem);
+  gap: clamp(var(--space-xl), 3.5vw, 3rem);
 }
 
-
 @media (max-width: 23rem) {
-  :root { --page-inline-padding: 1rem; }
+  :root { --page-inline-padding: var(--space-s); }
 }
 
 @media (min-width: 64rem) { 
   .weather-card {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 2rem;
+    gap: var(--space-xl);
     align-items: stretch; 
   }
 
