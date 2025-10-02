@@ -14,14 +14,14 @@ const daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday",
 export function DaysMenu({ menuPosition, closeMenu, days, onSelectDay }: DaysMenuProps) {
 
   return (
-    <OptionsWindow position={menuPosition!} onClose={closeMenu}>
+    <OptionsWindow position={menuPosition} onClose={closeMenu}>
       <ul 
         id="days-menu" 
         className="hourly-forecast__menu"
         role="menu"
       >
-        {days.map((date, i) => (
-          <li key={i}>
+        {days.map((date) => (
+          <li key={date.toISOString()}>
             <button
               className="hourly-forecast__menu-item"
               role="menuitem"
