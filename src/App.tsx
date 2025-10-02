@@ -1,12 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Home } from './pages/Home';
 import { ErrorPage } from './pages/ErrorPage';
 import { useWeather } from './hooks/useWeather';
+import { useGeolocation } from './hooks/useGeolocation';
 import type { UnitsState } from './types/unitsState';
+import type { HomeCity } from './types/homeCity'; 
 import "react-loading-skeleton/dist/skeleton.css";
 import './App.css';
 
-const DEFAULT_COORDS = { 
+const DEFAULT_UNITS: UnitsState = {
+  temperature: "celsius",
+  wind: "kmh",
+  precipitation: "mm"
+};
+
+const DEFAULT_COORDS: HomeCity = { 
   lat: 52.52, 
   lon: 13.405, 
   city: "Berlin", 
@@ -14,53 +22,43 @@ const DEFAULT_COORDS = {
 };
 
 function App() {
-  const [ units, setUnits ] = useState<UnitsState>({
-    temperature: "celsius",
-    wind: "kmh",
-    precipitation: "mm"
-  });
+  const [ units, setUnits ] = useState<UnitsState>(DEFAULT_UNITS);
+  const { coords, setCoords, isLoading: geoLoading } = useGeolocation({ defaultCoords: DEFAULT_COORDS});
 
-  const [ coords, setCoords ] = useState(DEFAULT_COORDS);
-
-  const { data, loading, error } = useWeather(
+  const { data, loading: weatherLoading, error } = useWeather(
     units, 
-    coords?.lat ?? DEFAULT_COORDS.lat, 
-    coords?.lon ?? DEFAULT_COORDS.lon
+    coords ? coords.lat : undefined,
+    coords ? coords.lon : undefined
   );
 
-  useEffect(() => {
-    if (!navigator.geolocation) return;
+  const isAppLoading = geoLoading || weatherLoading;
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;   
-        setCoords({
-          lat: latitude,
-          lon: longitude,
-          city: "Your location",
-          country: ""
-        });
-      },
-      (error) => console.log("Geolocation disabled", error)
+  if (error) {
+    return <ErrorPage units={units} setUnits={setUnits} />;
+  }
+
+  if (!coords || !data) {
+    return (
+      <Home
+        data={null}
+        units={units}
+        setUnits={setUnits}
+        selectedCity={coords ?? DEFAULT_COORDS}
+        onSelectCity={setCoords}
+        loading={true}
+      />
     );
-  }, []);
+  }
 
   return (
-    <>
-      { error &&
-        <ErrorPage units={units} setUnits={setUnits} />
-      }
-      { (data && coords || loading) &&
-        <Home 
-          data={data} 
-          units={units} 
-          setUnits={setUnits}
-          selectedCity={coords}
-          onSelectCity={setCoords}
-          loading={loading}
-        /> 
-      }
-    </>
+    <Home 
+      data={data} 
+      units={units} 
+      setUnits={setUnits}
+      selectedCity={coords!}
+      onSelectCity={setCoords}
+      loading={isAppLoading}
+    />
   )
 }
 
