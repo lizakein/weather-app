@@ -1,4 +1,4 @@
-import { useCallback, type Dispatch, type SetStateAction } from "react";
+import { useCallback, useEffect, useRef, type Dispatch, type SetStateAction } from "react";
 import { UNITS_CONFIG } from "../../config/unitsConfig";
 import type { MenuPosition } from "../../hooks/useContextMenu";
 import { OptionsWindow } from "../../shared/OptionsWindow";
@@ -14,6 +14,12 @@ interface UnitsMenuProps {
 };
 
 export function UnitsMenu({ menuPosition, closeMenu, units, setUnits }: UnitsMenuProps) {
+  const firstButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    firstButtonRef.current?.focus();
+  }, []);
+  
   const handleSelect = useCallback(
     (groupId: keyof UnitsState, value: string) => {
       setUnits(prev => ({ ...prev, [groupId]: value }));
@@ -38,6 +44,7 @@ export function UnitsMenu({ menuPosition, closeMenu, units, setUnits }: UnitsMen
         aria-label="Units settings"
       >
         <button 
+          ref={firstButtonRef}
           className="units-window__switch" 
           role="menuitem"
           onClick={handleSwitch}
