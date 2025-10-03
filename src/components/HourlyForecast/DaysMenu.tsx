@@ -1,6 +1,7 @@
 import { OptionsWindow } from "../../shared/OptionsWindow";
 import type { MenuPosition } from "../../hooks/useContextMenu";
 import "./DaysMenu.css";
+import { useEffect, useRef } from "react";
 
 interface DaysMenuProps {
   menuPosition: MenuPosition;
@@ -12,6 +13,11 @@ interface DaysMenuProps {
 const daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 export function DaysMenu({ menuPosition, closeMenu, days, onSelectDay }: DaysMenuProps) {
+  const firstButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    firstButtonRef.current?.focus();
+  }, []);
 
   return (
     <OptionsWindow position={menuPosition} onClose={closeMenu}>
@@ -20,9 +26,10 @@ export function DaysMenu({ menuPosition, closeMenu, days, onSelectDay }: DaysMen
         className="hourly-forecast__menu"
         role="menu"
       >
-        {days.map((date) => (
+        {days.map((date, index) => (
           <li key={date.toISOString()}>
             <button
+              ref={ index === 0 ? firstButtonRef : null }
               className="hourly-forecast__menu-item"
               role="menuitem"
               onClick={() => {
