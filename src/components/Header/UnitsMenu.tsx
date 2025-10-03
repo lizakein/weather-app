@@ -22,12 +22,12 @@ export function UnitsMenu({ menuPosition, closeMenu, units, setUnits }: UnitsMen
   );
 
   const handleSwitch = useCallback(() => {
-    setUnits(prev => ({
-      temperature: prev.temperature === "celsius" ? "fahrenheit" : "celsius",
-      wind: prev.wind === "kmh" ? "mph" : "kmh",
-      precipitation: prev.precipitation === "mm" ? "inch" : "mm",
-    }));
-  }, [setUnits]);
+    setUnits(
+      units.temperature === 'celsius' ?
+      { temperature: 'fahrenheit', wind: 'mph', precipitation: 'inch'} :
+      { temperature: 'celsius', wind: 'kmh', precipitation: 'mm'}
+    );
+  }, [setUnits, units.temperature]);
 
   return (
     <OptionsWindow position={menuPosition} onClose={closeMenu}>
