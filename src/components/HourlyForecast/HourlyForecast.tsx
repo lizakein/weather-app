@@ -19,10 +19,21 @@ export function HourlyForecast({ data }: HourlyForecastProps) {
   const hourlyData = transformHourly(data.hourly);
 
   const filteredData = useMemo(() => {
-    return hourlyData.filter(hour => 
-      hour.time.getDate() === selectedDay.getDate() &&
-      hour.time.getMonth() === selectedDay.getMonth()
-    );
+    const now = new Date();
+    const currentHour = new Date(now);
+    currentHour.setMinutes(0, 0, 0);
+
+    return hourlyData.filter(hour => {
+      const sameDay = (
+        hour.time.getDate() === selectedDay.getDate() &&
+        hour.time.getMonth() === selectedDay.getMonth()
+      );
+
+      if (sameDay && selectedDay.toDateString() === now.toDateString())
+        return hour.time >= currentHour;
+
+      return sameDay;
+    });
   }, [hourlyData, selectedDay]);
   
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -57,11 +68,29 @@ export function HourlyForecast({ data }: HourlyForecastProps) {
       
       <ul className="hourly-forecast__list" aria-label="Hourly temperatures">
         { filteredData.map((hour) => {
+          const now = new Date();
+          const currentHour = new Date(now);
+          currentHour.setMinutes(0, 0, 0);
+
+          const isCurrentHour = hour.time.getTime() === currentHour.getTime();
+
           return (
-            <li key={hour.time.toISOString()} className="hourly-forecast__item">
+            <li 
+              key={hour.time.toISOString()} 
+              className={`hourly-forecast__item ${isCurrentHour ? "hourly-forecast__item--current" : ""}`}
+            >
               <div className="hourly-forecast__time-block">
-                <img src={hour.weather_code.src} alt={hour.weather_code.alt} className="hourly-forecast__icon" />
-                <time className="hourly-forecast__time" dateTime={hour.time.toISOString()}>{formatHour(hour.time)}</time>
+                <img 
+                  src={hour.weather_code.src} 
+                  alt={hour.weather_code.alt} 
+                  className="hourly-forecast__icon" 
+                />
+                <time 
+                  className="hourly-forecast__time" 
+                  dateTime={hour.time.toISOString()}
+                >
+                  {formatHour(hour.time)}
+                </time>
               </div>
                           
               <span 

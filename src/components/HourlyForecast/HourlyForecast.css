@@ -67,6 +67,11 @@
   border-radius: var(--radius-s);
 }
 
+.hourly-forecast__item--current {
+  background-color: var(--blue-500);
+  border-color: var(--blue-700);
+}
+
 .hourly-forecast__time-block {
   display: flex;
   align-items: center; 
