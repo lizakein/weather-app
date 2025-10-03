@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Home } from './pages/Home';
 import { ErrorPage } from './pages/ErrorPage';
 import { useWeather } from './hooks/useWeather';
@@ -7,6 +6,7 @@ import type { UnitsState } from './types/unitsState';
 import type { HomeCity } from './types/homeCity'; 
 import "react-loading-skeleton/dist/skeleton.css";
 import './App.css';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const DEFAULT_UNITS: UnitsState = {
   temperature: "celsius",
@@ -22,7 +22,7 @@ const DEFAULT_COORDS: HomeCity = {
 };
 
 function App() {
-  const [ units, setUnits ] = useState<UnitsState>(DEFAULT_UNITS);
+  const [ units, setUnits ] = useLocalStorage<UnitsState>("units", DEFAULT_UNITS);
   const { coords, setCoords, isLoading: geoLoading } = useGeolocation({ defaultCoords: DEFAULT_COORDS});
 
   const { data, loading: weatherLoading, error } = useWeather(
