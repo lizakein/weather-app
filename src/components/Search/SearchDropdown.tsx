@@ -1,6 +1,7 @@
 import { OptionsWindow } from "../../shared/OptionsWindow";
 import type { City } from "../../types/city";
 import LoadingIcon from "../../assets/images/icon-loading.svg";
+import { useEffect, useRef } from "react";
 
 interface SearchDropdownProps {
   loading: boolean;
@@ -19,16 +20,33 @@ export function SearchDropdown({
   setResults, 
   handleSelect
 }: SearchDropdownProps) {
+  const optionRefs = useRef<HTMLLIElement[]>([]);
+  const firstResultFocused = useRef(false);
+
+  useEffect(() => {
+    if (results.length > 0) {
+      firstResultFocused.current = false;
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Tab" && !firstResultFocused.current) {
+          const first = optionRefs.current[0];
+          if (first) {
+            e.preventDefault();
+            first.focus();
+            firstResultFocused.current = true;
+          }
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [results]);
+
   if (!sectionRef.current) return null;
 
   const rect = sectionRef.current.getBoundingClientRect();
   const width = sectionRef.current.offsetWidth - 16;
-
-  console.log({
-    loading, error, resultsLength: results.length,
-    sectionExists: !!sectionRef.current,
-    widthRaw: sectionRef.current?.offsetWidth - 16
-  });
 
   return (
     <OptionsWindow
@@ -70,19 +88,27 @@ export function SearchDropdown({
         <ul 
           className="search__dropdown"
           style={{ "--dropdown-width": `${width}px` } as React.CSSProperties}
+          role="listbox"
         >
-          {results.map((city) => (
+          {results.map((city, index) => (
             <li 
               key={`${city.id}-${city.latitude}-${city.longitude}`} 
               className="search__option"
+              tabIndex={0}
+              ref={el => { optionRefs.current[index] = el!; }}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSelect(city);                
+                }
+              }}
             >
               <button
                 type="button"          
                 onClick={() => handleSelect(city)}
+                tabIndex={-1}
               >
-                {city.name}
-                {city.admin1 ? `, ${city.admin1}` : ""},
-                {city.country}
+                {`${city.name}, ${city.admin1}, ${city.country}`}
               </button>
             </li>
           ))}

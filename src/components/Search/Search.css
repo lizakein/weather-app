@@ -98,9 +98,15 @@
 }
 
 .search__option:hover,
-.search__option:active {
+.search__option:active,
+.search__option:focus {
   background-color: var(--neutral-700);
   border: 1px solid var(--neutral-600);
+}
+
+.search__option:focus-visible {
+  outline: none;
+  border-color: var(--blue-500);
 }
 
 /* ========== MEDIA QUERIES ========== */
