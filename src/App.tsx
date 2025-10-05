@@ -7,6 +7,7 @@ import type { HomeCity } from './types/homeCity';
 import "react-loading-skeleton/dist/skeleton.css";
 import './App.css';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useState } from 'react';
 
 const DEFAULT_UNITS: UnitsState = {
   temperature: "celsius",
@@ -25,16 +26,25 @@ function App() {
   const [ units, setUnits ] = useLocalStorage<UnitsState>("units", DEFAULT_UNITS);
   const { coords, setCoords, isLoading: geoLoading } = useGeolocation({ defaultCoords: DEFAULT_COORDS});
 
+  const [ retryTrigger, setRetryTrigger ] = useState(0);
+
   const { data, loading: weatherLoading, error } = useWeather(
     units, 
     coords ? coords.lat : undefined,
-    coords ? coords.lon : undefined
+    coords ? coords.lon : undefined,
+    retryTrigger
   );
 
   const isAppLoading = geoLoading || weatherLoading;
 
   if (error) {
-    return <ErrorPage units={units} setUnits={setUnits} />;
+    return (
+      <ErrorPage 
+        units={units} 
+        setUnits={setUnits} 
+        onRetry={() => setRetryTrigger(prev => prev + 1)}
+      />
+    );
   }
 
   if (!coords || !data) {

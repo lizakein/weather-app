@@ -8,9 +8,10 @@ import "./ErrorPage.css";
 interface ErrorPageProps {
   units: UnitsState;
   setUnits: Dispatch<SetStateAction<UnitsState>>;
+  onRetry: () => void;
 };
 
-export function ErrorPage({ units, setUnits }: ErrorPageProps) {
+export function ErrorPage({ units, setUnits, onRetry }: ErrorPageProps) {
   return (
     <>
       <Header units={units} setUnits={setUnits} />
@@ -27,7 +28,11 @@ export function ErrorPage({ units, setUnits }: ErrorPageProps) {
         <p className="error-page__description">
           We couldn’t connect to the server (API error). Please try again in a few moments.
         </p>
-        <button className="error-page__retry-button">
+        <button 
+          className="error-page__retry-button"
+          onClick={onRetry}
+          onKeyDown={e => e.key === "Enter" && onRetry()}
+        >
           <img 
             src={RetryIcon} 
             alt="" 

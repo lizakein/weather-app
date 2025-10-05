@@ -31,4 +31,23 @@
   padding: 12px 1rem;
   border-radius: 0.5rem;
   background-color: var(--neutral-800);
+
+  cursor: pointer;
+  transition: 0.3s ease-in background-color;
+}
+
+.error-page__retry-button:hover {
+  background-color: var(--neutral-700);
+}
+
+.error-page__retry-button:focus,
+.error-page__retry-button:active {
+  outline: 3px solid var(--neutral-0);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-page__retry-button {
+    transition: none;
+  }
 }
