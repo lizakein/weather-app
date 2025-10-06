@@ -43,9 +43,7 @@ Users should be able to:
 
 ### Screenshots
 
-```markdown
 ![](./screenshots/desktop.png)
-```
 
 ---
 
@@ -137,9 +135,7 @@ Future improvements could include:
 
 ### Скриншоты
 
-```markdown
 ![](./screenshots/desktop.png)
-```
 
 ---
 
